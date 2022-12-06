@@ -46,3 +46,4 @@
  }
  
 customElements.define("com-sap-sample-schwarz-leaflet_map-styling", LeafletMapStylingPanel);
+})();
