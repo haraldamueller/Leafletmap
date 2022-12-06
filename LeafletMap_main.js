@@ -318,6 +318,10 @@ map.on('popupopen', function(){
 		});
 
 
+	// Set the active layers:
+		osm.addTo(map);
+		Lidl.addTo(map);
+
 /*
 Data should be:
 data: [
