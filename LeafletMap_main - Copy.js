@@ -36,86 +36,7 @@ function buttonDetails(e) {
 	
 	//var that = this;
 	
-	var theMap;//, lidlIcon;
-	
-	// Url to the data json:
-	var url = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
-
-	const mapboxUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
-	const mapboxAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-
-
-	// Define the basemaps:
-    var osm=new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
-				
-	var streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-
-//	var satellite = L.tileLayer(mapboxUrl, {id: 'MapID', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-	const satellite = L.tileLayer(mapboxUrl, {id: 'mapbox/satellite-v9', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-
-	// Define the layergroups:
-	const Lidl = L.layerGroup();
-	const Kaufland = L.layerGroup();
-	const AldiSued = L.layerGroup();
-	const Others = L.layerGroup();
-	
-	// Define the icons:
-	var lidlIcon = L.icon({
-//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-		iconUrl: 'Lidl.png',
-		//shadowUrl: 'leaf-shadow.png',
-
-		iconSize:     [36, 36], // size of the icon
-		//shadowSize:   [50, 64], // size of the shadow
-		//iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-		//shadowAnchor: [4, 62],  // the same for the shadow
-		//popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-		});
-
-	var kauflandIcon = L.icon({
-//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-		iconUrl: 'Kaufland.png',
-		iconSize:     [36, 36], // size of the icon
-		});
-
-	var AldiSuedIcon = L.icon({
-//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-		iconUrl: 'AldiSued.png',
-		iconSize:     [36, 36], // size of the icon
-		});
-
-	const map = L.map('map', {
-		center: [49.50000, 9.50000],
-		zoom: 8
-	});
-
-/*
-	const map = L.map('map', {
-		center: [49.50000, 9.50000],
-		zoom: 9,
-		layers: [osm, streets, satellite]
-	});
-*/
-	const baseLayers = {
-		'OpenStreetMap': osm,
-		'Streets': streets,
-		'Satellite': satellite
-	};
-
-	const overlays = {
-		'Lidl': Lidl,
-		'Kaufland': Kaufland,
-		'Aldi Sued': AldiSued,
-		'Andere': Others
-	};
-
-// Set the active layers:
-    osm.addTo(map);
-	Lidl.addTo(map);
-	
-// Add the layer control
-	const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+	var theMap, lidlIcon;
 	
 
 	function buttonDetails(e) {
@@ -127,9 +48,7 @@ function buttonDetails(e) {
 		var actLatLon = e.latlng;
 		var radiusRound = radius.toFixed(2);
 		
-		//var marker = L.marker(e.latlng, {icon: lidlIcon}).addTo(theMap);
-//		var marker = L.marker(e.latlng).addTo(theMap);
-		var marker = L.marker(e.latlng).addTo(map);
+		var marker = L.marker(e.latlng, {icon: lidlIcon}).addTo(theMap);
 		
 		marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
 		marker.on('click', function() {  
@@ -234,17 +153,10 @@ map.on('popupopen', function(){
 
     onCustomWidgetBeforeUpdate (oChangedProperties) {
 		console.log("> onCustomWidgetBeforeUpdate("+oChangedProperties+")");
-		console.log(`${this._props["widgetName"]}`);
-
     }
 
     onCustomWidgetAfterUpdate (oChangedProperties) {
 		console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+")");
-		 if ("dataUrl" in changedProperties) {
-			this.dataUrl = changedProperties["dataUrl"];
-			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl set to "+this.dataUrl);
-		 }
-		 
     }
 
 
@@ -281,43 +193,6 @@ map.on('popupopen', function(){
 		console.log("-- render() - js Libs loaded now!");
 		
 
-		$.getJSON(url, function(data) {
-			var posData = data.d.Data;
-			var actMarker;
-
-			for (i = 0; i < posData.length; i++) { 
-				//var coords = data[i].latlng;
-				//var a = coords.split(",");
-				var lat = posData[i].latitude;
-				var lng = posData[i].longitude;
-				//var lng = parseFloat(a[1]);
-				var filialID = posData[i].filialid;
-				var sparte = posData[i].sparte;
-				var text = posData[i].text;
-				var sparte = posData[i].sparte;
-				
-	console.log("-- text: "+text+", Sparte: "+sparte+", Lat: "+lat+", Lon: "+lng);
-
-				actMarker = L.marker([lat,lng]).bindPopup("<b>Name: </b>" + text );
-
-				if (sparte=="Lidl") {
-					actMarker.setIcon(lidlIcon);
-					actMarker.addTo(Lidl);
-				} else if (sparte=="Kaufland") {
-					actMarker.setIcon(kauflandIcon);
-					actMarker.addTo(Kaufland);
-				} else if (sparte=="AldiSued") {
-					actMarker.setIcon(AldiSuedIcon);
-					actMarker.addTo(AldiSued);
-				} else {
-					actMarker.addTo(Others);
-				}
-				
-	//            myPts.addLayer(x);
-			} 
-		});
-
-
 /*
 Data should be:
 data: [
@@ -329,14 +204,12 @@ data: [
 
 		//var map = L.map('map').fitWorld();
 		//var map = L.map(this._map).fitWorld();
-//		theMap = L.map(this._map).fitWorld();
-//		theMap = L.map(this._map).fitWorld();
+		theMap = L.map(this._map).fitWorld();
 
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
 			attribution: '© OpenStreetMap'
-//		}).addTo(theMap);
-		}).addTo(map);
+		}).addTo(theMap);
 		
 //		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //			maxZoom: 19,
@@ -345,14 +218,14 @@ data: [
 		
 		
 		
-		map.locate({setView: true, maxZoom: 16});
-//		theMap.locate({setView: true, maxZoom: 16});
+//		map.locate({setView: true, maxZoom: 16});
+		theMap.locate({setView: true, maxZoom: 16});
 		
 
 		console.log("+-+ Trying to add onLocationFound-Event");
 
-		map.on('locationfound', onLocationFound);
-//		theMap.on('locationfound', onLocationFound);
+		//map.on('locationfound', onLocationFound);
+		theMap.on('locationfound', onLocationFound);
 
     }
   }

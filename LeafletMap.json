@@ -16,6 +16,13 @@
       "url": "https://haraldamueller.github.io/Leafletmap/LeafletMap_main.js",
       "integrity": "",
       "ignoreIntegrity": true
+    },
+    {
+      "kind": "styling",
+      "tag": "com-sap-sample-schwarz-leaflet_map-styling",
+      "url": "https://haraldamueller.github.io/Leafletmap/LeafletMap_styling.js",
+      "integrity": "",
+      "ignoreIntegrity": true
     }
   ],
   "properties": {
@@ -29,19 +36,24 @@
 		},
 		"caption": {
 			"type": "string",
-			"description": "The caption of the pie chart",
+			"description": "The caption of the map",
 			"default": ""
+		},
+		"dataUrl": {
+			"type": "string",
+			"description": "The url of the JSON data used on the map",
+			"default": "https://haraldamueller.github.io/Leafletmap/testdata_clean.json"
 		}
   },
   "methods": {
     "getCaption": {
       "returnType": "string",
-      "description": "Get the caption of the pie chart",
+      "description": "Get the caption of the map",
       "parameters": [],
       "body": "return this.caption;"
     },
     "setCaption": {
-      "description": "Set the caption of the pie chart",
+      "description": "Set the caption of the map",
       "parameters": [
         {
           "name": "caption",
@@ -50,6 +62,23 @@
         }
       ],
       "body": "this.caption = caption;"
+    },
+    "getDataUrl": {
+      "returnType": "string",
+      "description": "Get the dataUrl of the map",
+      "parameters": [],
+      "body": "return this.dataUrl;"
+    },
+    "setCaption": {
+      "description": "Set the dataUrl of the map",
+      "parameters": [
+        {
+          "name": "dataUrl",
+          "type": "string",
+          "description": "The new dataUrl"
+        }
+      ],
+      "body": "this.dataUrl = dataUrl;"
     }
   },
   "events": {
