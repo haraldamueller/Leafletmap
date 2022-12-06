@@ -280,8 +280,9 @@ map.on('popupopen', function(){
 		// Added by HM now:
 		console.log("-- render() - js Libs loaded now!");
 		
+		var dataUrl = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
 
-		$.getJSON(url, function(data) {
+		$.getJSON(dataUrl, function(data) {
 			var posData = data.d.Data;
 			var actMarker;
 
