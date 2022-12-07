@@ -175,9 +175,15 @@ map.on('popupopen', function(){
     onCustomWidgetAfterUpdate (oChangedProperties) {
 		console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+")");
 		if ("dataUrl" in oChangedProperties) {
-			this.dataUrl = oChangedProperties["dataUrl"];
-			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl set to "+this.dataUrl);
-			this.render();
+			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl was before "+this.dataUrl);
+			var newDataUrl = oChangedProperties["dataUrl"];
+			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl comming in "+newDataUrl);
+			if (newDataUrl != this.dataUrl) {
+				console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl set to "+this.dataUrl);
+				this.render();
+			} else {
+				console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl did not change!");
+			}
 		}
 		 
     }
@@ -262,13 +268,16 @@ map.on('popupopen', function(){
 			});
 
 		if (this.map != undefined) {
-			map = this.map;
-		} else {
+			this.map.off();
+			this.map.remove();
+			//map = this.map.remove();
+		} 
+//		else {
 			map = L.map(this._map, {
 				center: [49.50000, 9.50000],
 				zoom: 8
 			});
-		}
+//		}
 
 	/*
 		const map = L.map('map', {
