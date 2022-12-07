@@ -7,10 +7,9 @@ var getScriptPromisify = (src) => {
 }
 
 function buttonDetails(e) {
-		console.log("openDetails außen ("+e+")");
-	  var event = new Event("onClick");
-	  that.dispatchEvent(event);
-
+	console.log("openDetails außen ("+e+")");
+	var event = new Event("onClick");
+	that.dispatchEvent(event);
 }
 
 (function () {
@@ -205,8 +204,10 @@ map.on('popupopen', function(){
 			var marker = L.marker(e.latlng);//.addTo(that.map);
 			marker.setIcon(positionIcon);
 			marker.addTo(that.map);
-
-			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
+			
+			var actID = "4711";
+			
+			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails("+actID+");'>Details</button>");//.openPopup();
 			marker.on('click', function() {  
 				console.log("Marker clicked at: "+marker.getLatLng());
 			});
@@ -234,10 +235,9 @@ map.on('popupopen', function(){
   	  //console.log(">> render()");
       await getScriptPromisify('https://unpkg.com/leaflet@1.9.1/dist/leaflet.js')
 
-		// Added by HM now:
 		console.log("-- render() - js Libs loaded now!");
 
-		// Define the basemaps:
+		// Define the basemap layers:
 		var osm=new L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
 					attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
 					
@@ -254,9 +254,7 @@ map.on('popupopen', function(){
 		// Define the icons:
 		var lidlIcon = L.icon({
 			iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-	//		iconUrl: 'Lidl.png',
 			//shadowUrl: 'leaf-shadow.png',
-
 			iconSize:     [36, 36], // size of the icon
 			//shadowSize:   [50, 64], // size of the shadow
 			//iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
@@ -266,27 +264,25 @@ map.on('popupopen', function(){
 
 		var kauflandIcon = L.icon({
 			iconUrl: 'https://haraldamueller.github.io/Leafletmap/Kaufland.png',
-	//		iconUrl: 'Kaufland.png',
 			iconSize:     [36, 36], // size of the icon
 			});
 
 		var AldiSuedIcon = L.icon({
 			iconUrl: 'https://haraldamueller.github.io/Leafletmap/AldiSued.png',
-	//		iconUrl: 'AldiSued.png',
 			iconSize:     [36, 36], // size of the icon
 			});
 
+		// If the map already exists, reset it:
 		if (this.map != undefined) {
 			this.map.off();
 			this.map.remove();
 			//map = this.map.remove();
 		} 
-//		else {
-			map = L.map(this._map, {
-				center: [49.50000, 9.50000],
-				zoom: 8
-			});
-//		}
+
+		map = L.map(this._map, {
+			center: [49.50000, 9.50000],
+			zoom: 8
+		});
 
 	/*
 		const map = L.map('map', {
@@ -307,14 +303,9 @@ map.on('popupopen', function(){
 			'Aldi Sued': AldiSued,
 			'Andere': Others
 		};
-
-	// Set the active layers:
-		osm.addTo(map);
-		Lidl.addTo(map);
 		
-	// Add the layer control
+		// Add the layer control
 		const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
-
 
 		//console.log("-- render() - before getJSON("+dataUrl+")");
 		console.log("-- render() - before getJSON("+this.dataUrl+")");
@@ -323,6 +314,7 @@ map.on('popupopen', function(){
 			dataUrl = this.dataUrl;
 			console.log("-- render() - dataUrl updated to "+dataUrl);
 		}
+
 		$.getJSON(dataUrl, function(data) {
 			var posData = data.d.Data;
 			var actMarker;
@@ -339,7 +331,7 @@ map.on('popupopen', function(){
 				var text = posData[i].text;
 				var sparte = posData[i].sparte;
 				
-	console.log("-- text: "+text+", Sparte: "+sparte+", Lat: "+lat+", Lon: "+lng);
+				console.log("-- text: "+text+", Sparte: "+sparte+", Lat: "+lat+", Lon: "+lng);
 
 				actMarker = L.marker([lat,lng]).bindPopup("<b>Name: </b>" + text );
 
@@ -360,34 +352,17 @@ map.on('popupopen', function(){
 
 		console.log("-- render() - after getJSON("+dataUrl+")");
 
-	// Set the active layers:
+		// Set the active layers:
 		osm.addTo(map);
 		Lidl.addTo(map);
 
-/*
-		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: '© OpenStreetMap'
-//		}).addTo(theMap);
-		}).addTo(map);
-*/
-		
-//		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//			maxZoom: 19,
-//			attribution: '© OpenStreetMap'
-//		}).addTo(map);
-		
-		
 		map.locate({setView: true, maxZoom: 16});
-//		theMap.locate({setView: true, maxZoom: 16});
 		
 		this.map = map;
 		
 		console.log("+-+ Trying to add onLocationFound-Event");
 
 		map.on('locationfound', this.onLocationFoundInt);
-//		map.on('locationfound', onLocationFound);
-//		theMap.on('locationfound', onLocationFound);
 
     }
   }
