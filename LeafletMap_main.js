@@ -254,6 +254,8 @@ map.on('popupopen', function(){
 		const AldiSued = L.layerGroup();
 		const Others = L.layerGroup();
 		
+		var mapUpdated = false;
+		
 		// Define the icons:
 		var lidlIcon = L.icon({
 			iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
@@ -279,6 +281,7 @@ map.on('popupopen', function(){
 		if (this.map != undefined) {
 			this.map.off();
 			this.map.remove();
+			mapUpdated=true;
 			//map = this.map.remove();
 		} 
 
@@ -365,14 +368,14 @@ map.on('popupopen', function(){
 		osm.addTo(map);
 		Lidl.addTo(map);
 
-		map.locate({setView: true, maxZoom: 16});
-		
-		this.map = map;
-		
-		console.log("+-+ Trying to add onLocationFound-Event");
-
-		map.on('locationfound', this.onLocationFoundInt);
-
+		if (!mapUpdated) {
+			console.log("+-+ Trying to add onLocationFound-Event");
+			map.locate({setView: true, maxZoom: 14});
+			this.map = map;
+			map.on('locationfound', this.onLocationFoundInt);
+		} else {
+			console.log("+-+ Map data updated - no need to locate...");
+		}
     }
   }
 
