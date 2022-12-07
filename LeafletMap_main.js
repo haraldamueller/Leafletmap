@@ -195,14 +195,14 @@ map.on('popupopen', function(){
 		var radiusRound = radius.toFixed(2);
 
 		try {
-			var marker = L.marker(e.latlng).addTo(this.map);
+			var marker = L.marker(e.latlng).addTo(that.map);
 			
 			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
 			marker.on('click', function() {  
 				console.log("Marker clicked at: "+marker.getLatLng());
 			});
 			
-			L.circle(e.latlng, radius).addTo(this.map);
+			L.circle(e.latlng, radius).addTo(that.map);
 		} catch (e) {
 			console.log("! Exception in onLocationFoundInt(): "+e);
 		}
