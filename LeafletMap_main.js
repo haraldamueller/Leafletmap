@@ -60,7 +60,7 @@ function buttonDetails(e) {
 		
 			//var marker = L.marker(e.latlng, {icon: lidlIcon}).addTo(theMap);
 	//		var marker = L.marker(e.latlng).addTo(theMap);
-			var marker = L.marker(e.latlng).addTo(this.map);
+			var marker = L.marker(e.latlng).addTo($map);
 			
 			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
 			marker.on('click', function() {  
@@ -80,7 +80,7 @@ function buttonDetails(e) {
 			});
 	*/
 			
-			L.circle(e.latlng, radius).addTo(this.map);
+			L.circle(e.latlng, radius).addTo($map);
 		} catch (e) {
 			console.log("! Exception in onLocationFound(): "+e);
 		}
@@ -182,7 +182,7 @@ map.on('popupopen', function(){
 		 
     }
 
-	function onLocationFoundInt(e) {
+	onLocationFoundInt(e) {
  	    console.log("> onLocationFoundInt - e.latlng;: "+e.latlng);
 		var radius = e.accuracy;
 		var actLatLon = e.latlng;
