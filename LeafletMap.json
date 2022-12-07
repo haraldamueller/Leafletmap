@@ -18,9 +18,9 @@
       "ignoreIntegrity": true
     },
     {
-      "kind": "styling",
-      "tag": "com-sap-sample-schwarz-leaflet_map-styling",
-      "url": "https://haraldamueller.github.io/Leafletmap/LeafletMap_styling.js",
+      "kind": "builder",
+      "tag": "com-sap-sample-schwarz-leaflet_map-builder",
+      "url": "https://haraldamueller.github.io/Leafletmap/LeafletMap_builder.js",
       "integrity": "",
       "ignoreIntegrity": true
     }

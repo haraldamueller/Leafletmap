@@ -45,77 +45,6 @@ function buttonDetails(e) {
 	const mapboxAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 
 
-	// Define the basemaps:
-    var osm=new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
-				
-	var streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-
-//	var satellite = L.tileLayer(mapboxUrl, {id: 'MapID', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-	const satellite = L.tileLayer(mapboxUrl, {id: 'mapbox/satellite-v9', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-
-	// Define the layergroups:
-	const Lidl = L.layerGroup();
-	const Kaufland = L.layerGroup();
-	const AldiSued = L.layerGroup();
-	const Others = L.layerGroup();
-	
-	// Define the icons:
-	var lidlIcon = L.icon({
-//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-		iconUrl: 'Lidl.png',
-		//shadowUrl: 'leaf-shadow.png',
-
-		iconSize:     [36, 36], // size of the icon
-		//shadowSize:   [50, 64], // size of the shadow
-		//iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-		//shadowAnchor: [4, 62],  // the same for the shadow
-		//popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-		});
-
-	var kauflandIcon = L.icon({
-//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-		iconUrl: 'Kaufland.png',
-		iconSize:     [36, 36], // size of the icon
-		});
-
-	var AldiSuedIcon = L.icon({
-//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-		iconUrl: 'AldiSued.png',
-		iconSize:     [36, 36], // size of the icon
-		});
-
-	const map = L.map('map', {
-		center: [49.50000, 9.50000],
-		zoom: 8
-	});
-
-/*
-	const map = L.map('map', {
-		center: [49.50000, 9.50000],
-		zoom: 9,
-		layers: [osm, streets, satellite]
-	});
-*/
-	const baseLayers = {
-		'OpenStreetMap': osm,
-		'Streets': streets,
-		'Satellite': satellite
-	};
-
-	const overlays = {
-		'Lidl': Lidl,
-		'Kaufland': Kaufland,
-		'Aldi Sued': AldiSued,
-		'Andere': Others
-	};
-
-// Set the active layers:
-    osm.addTo(map);
-	Lidl.addTo(map);
-	
-// Add the layer control
-	const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 	
 
 	function buttonDetails(e) {
@@ -265,22 +194,86 @@ map.on('popupopen', function(){
   	  //console.log(">> render()");
       await getScriptPromisify('https://unpkg.com/leaflet@1.9.1/dist/leaflet.js')
 
-		lidlIcon = L.icon({
-		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-		//shadowUrl: 'leaf-shadow.png',
-
-		iconSize:     [36, 36], // size of the icon
-		//shadowSize:   [50, 64], // size of the shadow
-		//iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-		//shadowAnchor: [4, 62],  // the same for the shadow
-		//popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-		});
-
-
 		// Added by HM now:
 		console.log("-- render() - js Libs loaded now!");
+
+
+		// Define the basemaps:
+		var osm=new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
+					attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
+					
+		var streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
+
+	//	var satellite = L.tileLayer(mapboxUrl, {id: 'MapID', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
+		const satellite = L.tileLayer(mapboxUrl, {id: 'mapbox/satellite-v9', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
+
+		// Define the layergroups:
+		const Lidl = L.layerGroup();
+		const Kaufland = L.layerGroup();
+		const AldiSued = L.layerGroup();
+		const Others = L.layerGroup();
 		
+		// Define the icons:
+		var lidlIcon = L.icon({
+	//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
+			iconUrl: 'Lidl.png',
+			//shadowUrl: 'leaf-shadow.png',
+
+			iconSize:     [36, 36], // size of the icon
+			//shadowSize:   [50, 64], // size of the shadow
+			//iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+			//shadowAnchor: [4, 62],  // the same for the shadow
+			//popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+			});
+
+		var kauflandIcon = L.icon({
+	//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
+			iconUrl: 'Kaufland.png',
+			iconSize:     [36, 36], // size of the icon
+			});
+
+		var AldiSuedIcon = L.icon({
+	//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
+			iconUrl: 'AldiSued.png',
+			iconSize:     [36, 36], // size of the icon
+			});
+
+		const map = L.map('map', {
+			center: [49.50000, 9.50000],
+			zoom: 8
+		});
+
+	/*
+		const map = L.map('map', {
+			center: [49.50000, 9.50000],
+			zoom: 9,
+			layers: [osm, streets, satellite]
+		});
+	*/
+		const baseLayers = {
+			'OpenStreetMap': osm,
+			'Streets': streets,
+			'Satellite': satellite
+		};
+
+		const overlays = {
+			'Lidl': Lidl,
+			'Kaufland': Kaufland,
+			'Aldi Sued': AldiSued,
+			'Andere': Others
+		};
+
+	// Set the active layers:
+		osm.addTo(map);
+		Lidl.addTo(map);
+		
+	// Add the layer control
+		const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+
 		var dataUrl = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
+
+		console.log("-- render() - before getJSON("+dataUrl+")");
+
 
 		$.getJSON(dataUrl, function(data) {
 			var posData = data.d.Data;
@@ -318,6 +311,7 @@ map.on('popupopen', function(){
 			} 
 		});
 
+		console.log("-- render() - after getJSON("+dataUrl+")");
 
 	// Set the active layers:
 		osm.addTo(map);
