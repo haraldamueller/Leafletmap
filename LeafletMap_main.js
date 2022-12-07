@@ -242,10 +242,14 @@ map.on('popupopen', function(){
 			iconSize:     [36, 36], // size of the icon
 			});
 
-		map = L.map(this._map, {
-			center: [49.50000, 9.50000],
-			zoom: 8
-		});
+		if (this.map != undefined) {{
+			map = this.map;
+		} else {
+			map = L.map(this._map, {
+				center: [49.50000, 9.50000],
+				zoom: 8
+			});
+		}
 
 	/*
 		const map = L.map('map', {
