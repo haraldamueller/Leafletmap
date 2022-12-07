@@ -36,7 +36,7 @@ function buttonDetails(e) {
 	
 	//var that = this;
 	
-	var theMap;//, lidlIcon;
+	var theMap, map;//, lidlIcon;
 	
 	// Url to the data json:
 	var url = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
@@ -52,6 +52,7 @@ function buttonDetails(e) {
 	}
 
 	function onLocationFound(e) {
+ 	    console.log("> onLocationFound - e.latlng;: "+e.latlng;);
 		var radius = e.accuracy;
 		var actLatLon = e.latlng;
 		var radiusRound = radius.toFixed(2);
@@ -199,8 +200,8 @@ map.on('popupopen', function(){
 
 
 		// Define the basemaps:
-		var osm=new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
-					attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
+		var osm=new L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
+					attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
 					
 		var streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
 
@@ -238,7 +239,7 @@ map.on('popupopen', function(){
 			iconSize:     [36, 36], // size of the icon
 			});
 
-		var map = L.map(this._map, {
+		map = L.map(this._map, {
 			center: [49.50000, 9.50000],
 			zoom: 8
 		});
@@ -278,6 +279,7 @@ map.on('popupopen', function(){
 		$.getJSON(dataUrl, function(data) {
 			var posData = data.d.Data;
 			var actMarker;
+			var i = 0;
 
 			for (i = 0; i < posData.length; i++) { 
 				//var coords = data[i].latlng;
