@@ -196,15 +196,22 @@ map.on('popupopen', function(){
 		var actLatLon = e.latlng;
 		var radiusRound = radius.toFixed(2);
 
+		var positionIcon = L.icon({
+			iconUrl: 'https://haraldamueller.github.io/Leafletmap/marker-icon-2x.png',
+			iconSize:     [25, 41], // size of the icon
+			});
+
 		try {
-			var marker = L.marker(e.latlng).addTo(that.map);
-			
+			var marker = L.marker(e.latlng);//.addTo(that.map);
+			marker.setIcon(positionIcon);
+			marker.addTo(that.map);
+
 			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
 			marker.on('click', function() {  
 				console.log("Marker clicked at: "+marker.getLatLng());
 			});
 			
-			L.circle(e.latlng, radius).addTo(that.map);
+			//L.circle(e.latlng, radius).addTo(that.map);
 		} catch (e) {
 			console.log("! Exception in onLocationFoundInt(): "+e);
 		}
@@ -348,8 +355,6 @@ map.on('popupopen', function(){
 				} else {
 					actMarker.addTo(Others);
 				}
-				
-	//            myPts.addLayer(x);
 			} 
 		});
 
@@ -360,30 +365,17 @@ map.on('popupopen', function(){
 		Lidl.addTo(map);
 
 /*
-Data should be:
-data: [
-        { value: 119633, name: 'Profit' },
-        { value: 341822, name: 'Net Revenue' },
-        { value: 525846, name: 'Gross Revenue' }
-      ]
-*/
-
-		//var map = L.map('map').fitWorld();
-		//var map = L.map(this._map).fitWorld();
-//		theMap = L.map(this._map).fitWorld();
-//		theMap = L.map(this._map).fitWorld();
-
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
 			attribution: '© OpenStreetMap'
 //		}).addTo(theMap);
 		}).addTo(map);
+*/
 		
 //		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //			maxZoom: 19,
 //			attribution: '© OpenStreetMap'
 //		}).addTo(map);
-		
 		
 		
 		map.locate({setView: true, maxZoom: 16});
