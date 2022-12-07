@@ -52,7 +52,7 @@ function buttonDetails(e) {
 	}
 
 	function onLocationFound(e) {
- 	    console.log("> onLocationFound - e.latlng;: "+e.latlng;);
+ 	    console.log("> onLocationFound - e.latlng;: "+e.latlng);
 		var radius = e.accuracy;
 		var actLatLon = e.latlng;
 		var radiusRound = radius.toFixed(2);
