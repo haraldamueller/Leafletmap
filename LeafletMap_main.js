@@ -169,8 +169,8 @@ map.on('popupopen', function(){
 
     onCustomWidgetAfterUpdate (oChangedProperties) {
 		console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+")");
-		 if ("dataUrl" in changedProperties) {
-			this.dataUrl = changedProperties["dataUrl"];
+		 if ("dataUrl" in oChangedProperties) {
+			this.dataUrl = oChangedProperties["dataUrl"];
 			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl set to "+this.dataUrl);
 		 }
 		 
@@ -238,7 +238,7 @@ map.on('popupopen', function(){
 			iconSize:     [36, 36], // size of the icon
 			});
 
-		const map = L.map('map', {
+		var map = L.map(this._map, {
 			center: [49.50000, 9.50000],
 			zoom: 8
 		});
