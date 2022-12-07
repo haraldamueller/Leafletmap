@@ -40,6 +40,8 @@ function buttonDetails(e) {
 	
 	// Url to the data json:
 	//var url = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
+	var dataUrl = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
+
 
 	const mapboxUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 	const mapboxAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
@@ -178,12 +180,12 @@ map.on('popupopen', function(){
 			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl was before "+this.dataUrl);
 			var newDataUrl = oChangedProperties["dataUrl"];
 			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl comming in "+newDataUrl);
-			if (newDataUrl != this.dataUrl) {
+			//if (newDataUrl != this.dataUrl) {
 				console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl set to "+this.dataUrl);
 				this.render();
-			} else {
-				console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl did not change!");
-			}
+			//} else {
+			//	console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl did not change!");
+			//}
 		}
 		 
     }
@@ -306,9 +308,8 @@ map.on('popupopen', function(){
 	// Add the layer control
 		const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
-		var dataUrl = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
 
-		console.log("-- render() - before getJSON("+dataUrl+")");
+		//console.log("-- render() - before getJSON("+dataUrl+")");
 		console.log("-- render() - before getJSON("+this.dataUrl+")");
 
 		if (this.dataUrl != "" && this.dataUrl != undefined) {
