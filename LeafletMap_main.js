@@ -12,6 +12,10 @@ function buttonDetails(e) {
 	that.dispatchEvent(event);
 }
 
+function mapMoved(e) {
+	console.log("mapMoved außen ("+e+")");
+}
+
 (function () {
   const prepared = document.createElement('template')
   prepared.innerHTML = `
@@ -66,8 +70,7 @@ function buttonDetails(e) {
 			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
 			marker.on('click', function() {  
 				console.log("Marker clicked at: "+marker.getLatLng());
-				//alert("Jetzt kommen die Details für Lidl 4711");
-			  
+
 				// Working fine!!
 				//var event = new Event("onClick");
 				//that.dispatchEvent(event);
@@ -81,7 +84,7 @@ function buttonDetails(e) {
 			});
 	*/
 			
-			L.circle(e.latlng, radius).addTo($map);
+			//L.circle(e.latlng, radius).addTo($map);
 		} catch (e) {
 			console.log("! Exception in onLocationFound(): "+e);
 		}
@@ -282,6 +285,12 @@ map.on('popupopen', function(){
 		map = L.map(this._map, {
 			center: [49.50000, 9.50000],
 			zoom: 8
+		});
+
+		map.on('moveend', mapMoved);
+
+		map.on('zoomend', function(e) {
+			console.log("- Zoomend-Event found: "+e);
 		});
 
 	/*
