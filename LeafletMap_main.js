@@ -39,13 +39,12 @@ function buttonDetails(e) {
 	var theMap, map;//, lidlIcon;
 	
 	// Url to the data json:
-	var url = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
+	//var url = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
 
 	const mapboxUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 	const mapboxAttribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 
 
-	
 
 	function buttonDetails(e) {
 		console.log("openDetails("+e+")");
@@ -61,7 +60,7 @@ function buttonDetails(e) {
 		
 			//var marker = L.marker(e.latlng, {icon: lidlIcon}).addTo(theMap);
 	//		var marker = L.marker(e.latlng).addTo(theMap);
-			var marker = L.marker(e.latlng).addTo(that.map);
+			var marker = L.marker(e.latlng).addTo(this.map);
 			
 			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
 			marker.on('click', function() {  
@@ -169,7 +168,7 @@ map.on('popupopen', function(){
 
     onCustomWidgetBeforeUpdate (oChangedProperties) {
 		console.log("> onCustomWidgetBeforeUpdate("+oChangedProperties+")");
-		console.log(`${this._props["widgetName"]}`);
+		//console.log(`${this._props["widgetName"]}`);
 
     }
 
@@ -178,7 +177,7 @@ map.on('popupopen', function(){
 		if ("dataUrl" in oChangedProperties) {
 			this.dataUrl = oChangedProperties["dataUrl"];
 			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl set to "+this.dataUrl);
-			render();
+			this.render();
 		}
 		 
     }
@@ -357,7 +356,8 @@ data: [
 		map.locate({setView: true, maxZoom: 16});
 //		theMap.locate({setView: true, maxZoom: 16});
 		
-
+		this.map = map;
+		
 		console.log("+-+ Trying to add onLocationFound-Event");
 
 		map.on('locationfound', onLocationFound);
