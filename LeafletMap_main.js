@@ -182,6 +182,25 @@ map.on('popupopen', function(){
 		 
     }
 
+	function onLocationFoundInt(e) {
+ 	    console.log("> onLocationFoundInt - e.latlng;: "+e.latlng);
+		var radius = e.accuracy;
+		var actLatLon = e.latlng;
+		var radiusRound = radius.toFixed(2);
+
+		try {
+			var marker = L.marker(e.latlng).addTo(this.map);
+			
+			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
+			marker.on('click', function() {  
+				console.log("Marker clicked at: "+marker.getLatLng());
+			});
+			
+			L.circle(e.latlng, radius).addTo(this.map);
+		} catch (e) {
+			console.log("! Exception in onLocationFound(): "+e);
+		}
+	}
 
 	buttonDetails(e) {
 		console.log("openDetails("+e+")");
@@ -364,7 +383,8 @@ data: [
 		
 		console.log("+-+ Trying to add onLocationFound-Event");
 
-		map.on('locationfound', onLocationFound);
+		map.on('locationfound', this.onLocationFoundInt);
+//		map.on('locationfound', onLocationFound);
 //		theMap.on('locationfound', onLocationFound);
 
     }
