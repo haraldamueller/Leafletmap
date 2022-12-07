@@ -56,30 +56,35 @@ function buttonDetails(e) {
 		var radius = e.accuracy;
 		var actLatLon = e.latlng;
 		var radiusRound = radius.toFixed(2);
+
+		try {
 		
-		//var marker = L.marker(e.latlng, {icon: lidlIcon}).addTo(theMap);
-//		var marker = L.marker(e.latlng).addTo(theMap);
-		var marker = L.marker(e.latlng).addTo(map);
-		
-		marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
-		marker.on('click', function() {  
-		  console.log("Marker clicked at: "+marker.getLatLng());
-		  //alert("Jetzt kommen die Details für Lidl 4711");
-		  
-		  // Working fine!!
-		  //var event = new Event("onClick");
-		  //that.dispatchEvent(event);
-		});
+			//var marker = L.marker(e.latlng, {icon: lidlIcon}).addTo(theMap);
+	//		var marker = L.marker(e.latlng).addTo(theMap);
+			var marker = L.marker(e.latlng).addTo(that.map);
+			
+			marker.bindPopup("You are " + radiusRound + " m from Lidl Filiale 4711<br><button id='button1' class='button1' onClick='buttonDetails();'>Details</button>");//.openPopup();
+			marker.on('click', function() {  
+				console.log("Marker clicked at: "+marker.getLatLng());
+				//alert("Jetzt kommen die Details für Lidl 4711");
+			  
+				// Working fine!!
+				//var event = new Event("onClick");
+				//that.dispatchEvent(event);
+			});
 
 
-/*
-		this.addEventListener("click", event => {
-			var event = new Event("onClick");
-			this.dispatchEvent(event);
-		});
-*/
-		
-		L.circle(e.latlng, radius).addTo(theMap);
+	/*
+			this.addEventListener("click", event => {
+				var event = new Event("onClick");
+				this.dispatchEvent(event);
+			});
+	*/
+			
+			L.circle(e.latlng, radius).addTo(this.map);
+		} catch (e) {
+			console.log("! Exception in onLocationFound(): "+e);
+		}
 
 //we need a + in the script tags because of the way jsFiddle is set up;
 //var popup_content = 'Testing the Link: <a href="#" class="speciallink">TestLink</a>'+
@@ -170,10 +175,11 @@ map.on('popupopen', function(){
 
     onCustomWidgetAfterUpdate (oChangedProperties) {
 		console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+")");
-		 if ("dataUrl" in oChangedProperties) {
+		if ("dataUrl" in oChangedProperties) {
 			this.dataUrl = oChangedProperties["dataUrl"];
 			console.log("> onCustomWidgetAfterUpdate("+oChangedProperties+") - dataUrl set to "+this.dataUrl);
-		 }
+			render();
+		}
 		 
     }
 
@@ -198,14 +204,12 @@ map.on('popupopen', function(){
 		// Added by HM now:
 		console.log("-- render() - js Libs loaded now!");
 
-
 		// Define the basemaps:
 		var osm=new L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
 					attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
 					
 		var streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
 
-	//	var satellite = L.tileLayer(mapboxUrl, {id: 'MapID', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
 		const satellite = L.tileLayer(mapboxUrl, {id: 'mapbox/satellite-v9', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
 
 		// Define the layergroups:
@@ -216,8 +220,8 @@ map.on('popupopen', function(){
 		
 		// Define the icons:
 		var lidlIcon = L.icon({
-	//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-			iconUrl: 'Lidl.png',
+			iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
+	//		iconUrl: 'Lidl.png',
 			//shadowUrl: 'leaf-shadow.png',
 
 			iconSize:     [36, 36], // size of the icon
@@ -228,14 +232,14 @@ map.on('popupopen', function(){
 			});
 
 		var kauflandIcon = L.icon({
-	//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-			iconUrl: 'Kaufland.png',
+			iconUrl: 'https://haraldamueller.github.io/Leafletmap/Kaufland.png',
+	//		iconUrl: 'Kaufland.png',
 			iconSize:     [36, 36], // size of the icon
 			});
 
 		var AldiSuedIcon = L.icon({
-	//		iconUrl: 'https://haraldamueller.github.io/Leafletmap/Lidl.png',
-			iconUrl: 'AldiSued.png',
+			iconUrl: 'https://haraldamueller.github.io/Leafletmap/AldiSued.png',
+	//		iconUrl: 'AldiSued.png',
 			iconSize:     [36, 36], // size of the icon
 			});
 
@@ -274,8 +278,12 @@ map.on('popupopen', function(){
 		var dataUrl = 'https://haraldamueller.github.io/Leafletmap/testdata_clean.json';
 
 		console.log("-- render() - before getJSON("+dataUrl+")");
+		console.log("-- render() - before getJSON("+this.dataUrl+")");
 
-
+		if (this.dataUrl != "" && this.dataUrl != undefined) {
+			dataUrl = this.dataUrl;
+			console.log("-- render() - dataUrl updated to "+dataUrl);
+		}
 		$.getJSON(dataUrl, function(data) {
 			var posData = data.d.Data;
 			var actMarker;
