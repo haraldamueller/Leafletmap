@@ -242,7 +242,7 @@ map.on('popupopen', function(){
 			iconSize:     [36, 36], // size of the icon
 			});
 
-		if (this.map != undefined) {{
+		if (this.map != undefined) {
 			map = this.map;
 		} else {
 			map = L.map(this._map, {
