@@ -198,7 +198,7 @@ map.on('popupopen', function(){
 			
 			L.circle(e.latlng, radius).addTo(this.map);
 		} catch (e) {
-			console.log("! Exception in onLocationFound(): "+e);
+			console.log("! Exception in onLocationFoundInt(): "+e);
 		}
 	}
 

@@ -34,11 +34,6 @@
 			"type": "integer",
 			"default": 420
 		},
-		"caption": {
-			"type": "string",
-			"description": "The caption of the map",
-			"default": ""
-		},
 		"dataUrl": {
 			"type": "string",
 			"description": "The url of the JSON data used on the map",
@@ -46,30 +41,13 @@
 		}
   },
   "methods": {
-    "getCaption": {
-      "returnType": "string",
-      "description": "Get the caption of the map",
-      "parameters": [],
-      "body": "return this.caption;"
-    },
-    "setCaption": {
-      "description": "Set the caption of the map",
-      "parameters": [
-        {
-          "name": "caption",
-          "type": "string",
-          "description": "The new caption"
-        }
-      ],
-      "body": "this.caption = caption;"
-    },
     "getDataUrl": {
       "returnType": "string",
       "description": "Get the dataUrl of the map",
       "parameters": [],
       "body": "return this.dataUrl;"
     },
-    "setCaption": {
+    "setDataUrl": {
       "description": "Set the dataUrl of the map",
       "parameters": [
         {
