@@ -232,13 +232,12 @@ map.on('popupopen', function(){
       this.render()
     }
 */
-
 	
     async render () {
   	  //console.log(">> render()");
       await getScriptPromisify('https://unpkg.com/leaflet@1.9.1/dist/leaflet.js')
 
-		console.log("-- render() - js Libs loaded now!");
+		console.log("------ render() - js Libs loaded now!");
 
 		// Define the basemap layers:
 		var osm=new L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
@@ -368,14 +367,14 @@ map.on('popupopen', function(){
 		osm.addTo(map);
 		Lidl.addTo(map);
 
-		if (!mapUpdated) {
+		//if (!mapUpdated) {
 			console.log("+-+ Trying to add onLocationFound-Event");
 			map.locate({setView: true, maxZoom: 14});
 			this.map = map;
 			map.on('locationfound', this.onLocationFoundInt);
-		} else {
-			console.log("+-+ Map data updated - no need to locate...");
-		}
+		//} else {
+		//	console.log("+-+ Map data updated - no need to locate...");
+		//}
     }
   }
 
