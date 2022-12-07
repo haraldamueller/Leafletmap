@@ -1,0 +1,30 @@
+{
+	"d": {
+		"__metadata": {
+			"id": "http://qbo.sys.schwarz/sap/opu/odata/sap/zbwx_stdappfilialen_srv/ClusteredFilialenSet(TopRightLat='',TopRightLon='',BottomLeftLat='',BottomLeftLon='',Filter='',ColumnCount='',RRowCount='')",
+			"uri": "http://qbo.sys.schwarz/sap/opu/odata/sap/zbwx_stdappfilialen_srv/ClusteredFilialenSet(TopRightLat='',TopRightLon='',BottomLeftLat='',BottomLeftLon='',Filter='',ColumnCount='',RRowCount='')",
+			"type": "ZBWX_STDAPPFILIALEN_SRV.ClusteredFilialen"
+		},
+		"TopRightLat": "",
+		"TopRightLon": "",
+		"BottomLeftLat": "",
+		"BottomLeftLon": "",
+		"Filter": "",
+		"Statictic": " Logic: 0.038 ms;  SQL Queries (9): 37.989 ms;  JSON: 0.443 ms;  Total: 38.497 ms;",
+		"Data": [
+			{"filialid":"DE9325L","text":"9325 Teststraße 14 HEILBRONN","sparte":"Lidl","latitude":50.166666666667,"longitude":6.166666666667},
+			{"filialid":"1_2","text":"Kaufland 4711","sparte":"Kaufland","latitude":50.500000000000,"longitude":6.166666666667},
+			{"filialid":"DE9347L","text":"9347 Baumweg 15 BERLIN","sparte":"Lidl","latitude":50.833333333334,"longitude":6.166666666667},
+			{"filialid":"2_1","text":"Aldi Buxtehude","sparte":"AldiSued","latitude":50.166666666667,"longitude":6.500000000000},
+			{"filialid":"2_2","text":"Kaufland Schwetzingen","sparte":"Kaufland","latitude":50.500000000000,"longitude":6.500000000000},
+			{"filialid":"DE9484L","text":"9484 Lindenallee 80 STUTTGART","sparte":"Lidl","latitude":50.833333333334,"longitude":6.500000000000},
+			{"filialid":"DE9521L","text":"9521 Stuttgarter Straße 4 HOF","sparte":"Lidl","latitude":50.166666666667,"longitude":6.833333333334},
+			{"filialid":"3_2","text":"Kaufland Augsburg","sparte":"Kaufland","latitude":50.500000000000,"longitude":6.833333333334},
+			{"filialid":"3_3","text":"Aldi Abenheim","sparte":"AldiSued","latitude":50.833333333334,"longitude":6.833333333334}
+		],
+		"ColumnCount": "5",
+		"RRowCount": "9",
+		"minValue": "3 ",
+		"maxValue": "57 "
+	}
+}
