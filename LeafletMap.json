@@ -7,7 +7,7 @@
   "name": "Schwarz Leaflet Map",
   "newInstancePrefix": "SchwarzLeafletMap",
   "icon": "https://haraldamueller.github.io/Leafletmap/LeafletMap.png",
-  "description": "Schwarz-style Leaflet Map",
+  "description": "Schwarz-style Leaflet Map new description",
   "supportsMobile": true,
   "webcomponents": [
     {
